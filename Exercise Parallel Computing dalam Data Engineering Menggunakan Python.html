@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>Exercise Parallel Computing dalam Data Engineering Menggunakan Python</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="Judul">Exercise</h1>
+        </div>
+    </div>
+    
+<style>
+
+    body{
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .container{
+        width: 94%;
+        border: 0.1vw solid #4471c4;
+        border-radius: 1em;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        padding-left: 4%;
+        padding-right: 3%;
+        padding-right: 10%;
+        margin-top: 3%;
+        margin-left: 3%;
+        margin-right: 3%;
+        background-color: aliceblue;
+        background: linear-gradient(25deg, #4471c4, #fff);  
+    }
+
+    .container .header{
+        color: navy;
+    }
+
+    .Judul{
+        max-width: 100%;
+        min-width: 30%;
+        font-size: 42px;
+        text-align: center;
+        font-weight: bolder;
+        margin: 1%;
+        margin-left: 5%;
+        font-family: calibri, Arial, sans-serif;
+    }
+
+    .content-box{
+        max-width: 100%;
+        min-width: 30%;
+        border: 0.1vw solid #4471c4;
+        border-radius: 1em;
+        background-color: ghostwhite;
+        box-shadow: 0.4vw 0.4vw 1.5vw rgba(0, 0, 0, 0.1);
+        font-family: Calibri, Arial, sans-serif;
+        font-size: 12px;
+        margin-left: 3%;
+        margin-right: 3%;
+        margin-top: 1%;
+        margin-bottom: 5%;
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 5%;
+        text-align: justify;
+    }
+
+    h1{
+        font-size: 26px; /* Ukuran font 18 */
+        font-weight: bold;
+        font-family: Calibri Arial sans-serif;
+        margin-top: 1.5%;
+        margin-bottom: 1.5%;
+        line-height: 1.5; /* Jarak spasi 1.5 */
+        text-align: justify;     
+    }
+
+    h2{
+        font-size: 20px; /* Ukuran font 16 */
+        font-family: Calibri Arial sans-serif;
+        margin-top: 1.5%;
+        margin-bottom: 1.5%;
+        line-height: 1.5; /* Jarak spasi 1.5 */
+        text-align: justify;
+    }
+
+    p{
+        font-size: 16px; /* Ukuran font 22 */
+        font-family: Calibri Arial sans-serif;
+        line-height: 1.5;    
+    }
+
+    /* Style for ul and ol */
+    ul, ol{
+        line-height: 1.5; /* Jarak spasi 1.5 */
+        list-style-type: decimal;
+        font-size: 18px; /* Ukuran font 18 */
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-left: 2%;
+        font-family: Calibri, Arial, sans-serif;
+        text-align: justify;
+        max-width: 90vw;
+    }
+
+    ol{
+        font-size: 16px; /* Ukuran font 22 */
+        line-height: 1.5; /* Jarak spasi 1.5 */
+        list-style-type: decimal;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        font-family: Calibri Arial sans-serif;
+        text-align: justify;
+    }
+
+    li{
+        font-size: 16px; /* Ukuran font 22 */
+        line-height: 1.5; /* Jarak spasi 1.5 */
+        margin-left: 2%;
+        font-family: Calibri Arial sans-serif;
+        text-align: justify;
+    }
+
+    table{
+        width: 85%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        margin-left: 10px;
+    }
+
+    .kotak {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: left;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    padding: 1.5vw;
+    line-height: 1.5;
+    width: 85%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    background-color: grey;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+    .teks-tomato{
+    color: tomato;
+    font-weight: bold;
+    }
+
+    .teks-blue{
+        color: blue;
+        font-weight: bold;
+    }
+
+    .teks-sandybrown{
+        color: sandybrown;
+        font-weight: bold;
+    }
+
+    .teks-skyblue{
+        color: skyblue;
+        font-weight: bold;
+    }
+
+    .garis-bawah{
+        text-decoration: none; /*menghilangkan garis bawah bawaan*/
+        text-decoration-thickness: 2px; /*ketebalan teks*/
+        border-bottom: 2.5px solid black; /*garis di bawah teks*/
+        padding-bottom: 2px; /*jarak antara teks dan garis bawah*/
+    }
+
+    .margin-left{
+        margin-left: 7%;
+        color: skyblue;
+        font-weight: bold;
+    }
+
+
+    </style>
+
+    <div class="content-box"> <!--Berisi konten exercise--> 
+        <h1>
+            <span class="garis-bawah">Instruksi</span>
+        </h1>
+        <p>
+            Sebuah perusahaan e-commerce besar, <b>MegaMart</b>, mengalami peningkatan data transaksi yang signifikan setiap harinya. Data tersebut meliputi informasi <b>transaksi pelanggan</b>, <b>pencarian produk</b>, hingga <b>histori pembelian</b>. 
+            Data ini datang dalam bentuk terstruktur (seperti detail transaksi) dan tidak terstruktur (seperti riwayat pencarian pengguna). 
+            Dengan pertumbuhan data yang pesat, MegaMart menghadapi tantangan dalam memproses data untuk analisis, yang bertujuan meningkatkan pengalaman pengguna dan mengoptimalkan penawaran produk.
+        </p>
+        <ol type="1">
+            <li>
+                MegaMart ingin menganalisis rata-rata nilai pembelian per pelanggan dan kategori produk yang paling sering dibeli setiap minggu. Data ini harus terus diperbarui karena setiap hari ada transaksi baru. 
+                Berdasarkan komponen tersebut, jelaskan langkah-langkah utama untuk mengimplementasikan pipeline yang memenuhi kebutuhan analisis MegaMart tersebut, termasuk penyimpanan, pemrosesan, dan jadwal eksekusi. Jelaskan juga alasan pemilihan masing-masing komponen untuk tiap tahapan!
+            </li>
+            <li>
+                Dalam pengembangan pipeline, MegaMart menemukan bahwa sebagian besar task berjalan lambat karena ukuran data yang sangat besar, terutama saat melakukan join antara tabel transaksi dan tabel produk. 
+                Apa pendekatan yang dapat dilakukan dengan menggunakan Spark dan HDFS untuk mengoptimalkan performa penggabungan data? Jelaskan bagaimana konsep RDD atau DataFrame pada Spark dapat digunakan dalam situasi ini, serta risiko yang mungkin timbul dari pendekatan tersebut.
+            </li>
+        </ol>
+
+        
+        <h1 style="margin-top: 5%;">
+            <span class="garis-bawah">Output yang diharapkan</span>
+        </h1>
+        <p>
+            Output dari instruksi di atas, dapat anda lihat pada link berikut:
+        </p>
+        <a href="https://docs.google.com/document/d/1IPDCc3lAET8Jk-6PveYr2oJcAzwEwffs/edit?usp=sharing&ouid=112804528838929674246&rtpof=true&sd=true" style="color: blue; font-size: 16px;" target="_blank"><u>Exercise Parallel Computing dalam Data Engineering Menggunakan Python</u></a>
+
+    </div>
+
+    </body>
+
+</html>

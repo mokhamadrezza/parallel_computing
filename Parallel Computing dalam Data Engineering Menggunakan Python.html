@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallel Computing dalam Data Engineering Menggunakan Python</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="Judul">Parallel Computing dalam Data Engineering Menggunakan Python</h1>
+        </div>
+<style>
+    
+body{
+    background-color: #fff;
+}
+
+.container{
+    background-color: #fff;
+    padding-top: 4%;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-bottom: 3%;
+}
+
+.container .header{
+    color: black;
+}
+
+.Judul{
+    font-size: 38px;
+    text-align: left;
+    font-weight: bolder;
+    margin: 1%;
+    font-family: Calibri, Arial, sans-serif;
+}
+
+.content-box{
+    max-width: 90vw;
+    min-width: 20%;
+    border: 0.1vw solid #4471C4;
+    background-color: #fff;
+    box-shadow: 0.4vw 0.4vw 1.5vw rgba(0, 0, 0, 0.1);
+    font-family: Calibri, Arial, sans-serif;
+    margin-left: 1%;
+    margin-bottom: 3%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+    text-align: justify;
+}
+
+.content-box h2{
+    font-size: xx-large;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: inline-flex;
+    align-content: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+}
+
+.content-box ul{
+    list-style-type: square;
+    padding-left: 2%;
+    margin-left: 1%;
+    font-size: 16px;
+    line-height: 2.5;
+    max-width: 90vw;
+}
+
+.content-box ul li{
+    max-width: 90vw;
+}
+
+.top-box{
+    margin-bottom: 0.5%;
+    max-width: 90vw;
+}
+
+.no-bullets{
+    list-style-type: none;
+    padding-left: 0;
+    max-width: 90vw;
+}
+
+.no-bullets ul{
+    padding-left: 3%; /* Menambahkan indentasi untuk daftar bersarang */
+    max-width: 90vw;
+}
+
+.note-box{
+    display: flex;
+    max-width: 90vw;
+    height: auto;
+    padding: 1%;
+    border-radius: 1vw;
+    border: 0.1vw solid #000;
+    background-color: #CFE1F3; /* Warna latar belakang seperti catatan */
+    box-shadow: 0.3vw 0.3vw 1vw rgba(0, 0, 0, 0.1);
+    font-family: Calibri, Arial, sans-serif;
+    position: relative;
+}
+
+.note-box span{
+    margin-top: 0%;
+    font-size: 1.6vw;
+    font-family: calibri, Arial, sans-serif;
+    text-align: justify;
+    max-width: 90vw;
+    font-weight: bolder;
+}
+
+.note-box h1{
+    margin-top: 0;
+    max-width: fit-content;
+    font-size: 30px;
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+}
+
+.note-box p{
+    margin: 0;
+    max-width: 90vw;
+    font-size: 1.4vw;
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+}
+/* Style for h1 */
+h1{
+    font-size: 36px; /* Ukuran font 18 */
+    font-weight: bolder;
+    font-family: Calibri, Arial, sans-serif;
+    color: #1f2855;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    text-align: justify;
+    max-width: 90vw;
+}
+/* Style for h2 */
+h2{
+    font-size: 16px; /* Ukuran font 16 */
+    font-weight: bolder;
+    font-family: Calibri, Arial, sans-serif;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    text-align: justify;
+    max-width: 90vw;
+}
+/*Style for h3 */
+h3 {
+    font-size: 14px; /* Ukuran font 14 */
+    font-weight: bolder;
+    font-family: calibri, Arial, sans-serif;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    line-height: 1.5; /*Jarak spasi 1/5 */
+    text-align: justify;
+    max-width: 90vw;
+}
+/* Style for p */
+p{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 18px; /* Ukuran font 18 */
+    text-align: justify;
+    margin-right: 1%;
+    margin-left: 1%;
+    max-width: 90vw;
+}
+/* Style for ul and ol */
+ul, ol{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    list-style-type: decimal;
+    font-size: 18px; /* Ukuran font 18 */
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 5%;
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+    max-width: 90vw;
+}
+/* Style for li */
+li{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    text-align: justify;
+    margin-right: 1%;
+    max-width: 90vw;
+}
+
+.small-text{
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    text-align: center;
+    font-size: 1vw;
+}
+
+.large-text {
+    line-height: 1.5; /* Jarak Spasi 1.5 */
+    font-family: Calibri, Arial, sans-serif;
+    text-align: center;
+    font-size: 1.2vw;
+    font-weight: bolder;
+    vertical-align: top;
+}
+
+.Tools{
+    max-width: 85%;
+    height: auto;
+    display: block;
+    margin-left: 30%;
+    margin-top: 15pt;
+    margin-bottom: 15pt;
+}
+
+.Tipe{
+    max-width: 85%;
+    height: auto;
+    display: block;
+    margin-left: 0%;
+    margin-top: 15pt;
+    margin-bottom: 15pt;
+}
+
+.pic {
+    display: block;
+    margin: 0;
+    padding: 20px;
+    height: auto;
+}
+
+iframe{
+    max-width: 100%;
+    min-height: auto;
+    margin-top: 1%;
+    margin-bottom: 1.5%;
+    margin-right: 1%;
+    margin-left: 2%;
+    border: none;
+}
+
+table {
+    width: auto;
+    border-collapse: separate;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+table, th, td {
+    border: 0.1vw solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    line-height: 1.5; /* Jarak spasi 1.5 */
+    font-size: 14px;
+}
+th {
+    background-color: #2796a3; /* Warna Latar Belakang untuk Baris Pertama */
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+tr:hover {
+    background-color: beige;
+}
+
+font {
+    max-width: 100%;
+}
+
+.kotak {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: left;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    padding: 1.5vw;
+    line-height: 1.5;
+    width: 90%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    background-color: grey;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.teks-tomato{
+    color: tomato;
+    font-weight: bold;
+}
+
+.teks-skyblue{
+    color: skyblue;
+    font-weight: bold;
+}
+
+.teks-sandybrown{
+    color: sandybrown;
+    font-weight: bold;
+}
+
+.margin-left{
+    margin-left: 7%;
+    font-weight: bold;
+}
+
+.margin-left2{
+    margin-left: 7%;
+    color: skyblue;
+    font-weight: bold;
+}
+
+.margin-left3{
+    margin-left: 10%; 
+    color: skyblue;
+    font-weight: bold;
+}
+
+.margin-left4{
+    margin-left: 7%;
+    color: sandybrown;
+    font-weight: bold;
+}
+
+</style>
+
+<div class="content-box"> <!-- Berisi Poin-poin Konten-->
+    <h2>
+        <img src="https://drive.google.com/thumbnail?id=1OSwy6Vn5jv8ERj5uV-d5abA8LFGNXV9x" alt="Content Image" style="vertical-align: middle; margin-right: 10px; width: 60px; height: 50px; padding-top: 10px;">Content
+    </h2>
+    <ul class="no-bullets" style="color: blue;">
+        <li><a href="#parallel-computing" style="color: blue;">Mengenal Parallel Computing</a></li>
+        <li><a href="#data-terstruktur" style="color: blue;">Data Terstruktur dan Tidak Terstruktur</a></li>
+        <li><a href="#sql-nosql" style="color: blue;">SQL dan NoSQL</a></li>
+        <li><a href="#database-schema" style="color: blue;">SQL - Database Schema</a></li>
+        <li><a href="#star-schema" style="color: blue;">SQL - Star Schema</a></li>
+        <li><a href="#dibalik-parallel-computing" style="color: blue;">Dibalik Parallel Computing</a></li>
+        <li><a href="#analogi-penjahit" style="color: blue;">Analogi Penjahit untuk Parallel Computing</a></li>
+        <li><a href="#keuntungan-parallel-computing" style="color: blue;">Keuntungan Parallel Computing</a></li>
+        <li><a href="#risiko-parallel-computing" style="color: blue;">Risiko Parallel Computing</a></li>
+        <li><a href="#implementasi-parallel-computing" style="color: blue;">Implementasi Penggunaan Parallel Computing</a></li> 
+        <li><a href="#hadoop" style="color: blue;">Mengenal Hadoop</a></li>
+        <li><a href="#hdfs" style="color: blue;">Hadoop Distributed File System (HDFS)</a></li>
+        <li><a href="#mapreduce" style="color: blue;">MapReduce pada Hadoop</a></li>
+        <li><a href="#apache-hive" style="color: blue;">Mengenal Apache Hive</a></li>
+        <li><a href="#apache-spark" style="color: blue;">Mengenal Apache Spark</a></li>
+        <li><a href="#rdd-apache-spark" style="color: blue;">Resilient Distributed Dataset (RDD) pada Apache Spark</a></li>
+        <li><a href="#pyspark" style="color: blue;">Python Interface untuk Apache Spark (PySpark)</a></li>
+        <li><a href="#pipeline-apache-spark" style="color: blue;">Pipeline Apache Spark</a></li>
+        <li><a href="#dag" style="color: blue;">Directed Acyclic Graph (DAG)</a></li>
+        <li><a href="#apache-airflow" style="color: blue;">Mengenal Apache Airflow</a></li>
+    </ul>
+     
+</div>
+
+<div class="content">
+    
+    <!--Mengenal Parallel Computing-->
+    <h1 id="parallel-computing" style="margin-left: 1%;">Mengenal Parallel Computing</h1>
+    <p>
+        <b>Parallel Computing atau komputasi paralel adalah metode pemrosesan data secara simultan yang memungkinkan sebuah program atau tugas untuk dibagi menjadi beberapa bagian kecil, yang kemudian dapat dikerjakan secara bersamaan di berbagai prosesor atau inti (core)</b>. 
+        Tujuan utama dari parallel computing adalah untuk meningkatkan kecepatan dan efisiensi processing data dari suatu database.
+    </p>
+    <p>
+        Database adalah kumpulan data yang biasanya berukuran besar kemudian diorganisir secara khusus agar proses pencarian dan pengambilan data bisa dilakukan secara cepat. Untuk mengakses data dalam database disebut dengan query. Keunggulan database yaitu:
+        <ol type="1">
+            <li>Penyimpanan data berukuran besar.</li>
+            <li>Data lebih terorganisir.</li>
+            <li>Pengambilan data secara cepat melalui DBMS (Database Management System)</li>
+        </ol>
+    </p>
+
+    <p>
+        Berikut adalah perbedaan database dan sistem penyimpanan file sederhana:
+    </p>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Database</th>
+            <th>Sistem Penyimpanan File Sederhana</th>
+        </tr>
+        <tr>
+            <td>Pengaturan Penyimpanan</td>
+            <td>Terorganisir karena dapat mengatur penyimpanan data dengan nama table yang sesuai</td>
+            <td>Tidak terorganisir</td>
+        </tr>
+        <tr>
+            <td>Pencarian Data</td>
+            <td>Data mudah dicari, direplikasi, dihapus dan lain-lain dengan menggunakan query</td>
+            <td>Sederhana dan kurang fungsional</td>
+        </tr>
+        
+    </table>
+
+
+    <!--Data Terstruktur dan Tidak Terstruktur-->
+    <h1 id="data-terstruktur" style="margin-left: 1%;">Data Terstruktur dan Tidak Terstruktur</h1>
+    <p>
+        Dalam dunia database, data dapat dikategorikan menjadi 3, yakni data terstruktur, data semi-struktur dan data tidak terstruktur. 
+    </p>
+    <ol type="1">
+        <li>
+            Data terstruktur merupakan data yang dapat diproses, disimpan, dan diambil dalam format tetap. Jenis data ini disimpan dalam bentuk tabel, baris dan kolom yang normalnya disimpan dalam excel atau spreadsheet, 
+            di mana informasi pada data sangat terorganisir dan dapat dengan mudah diakses dari database dengan algoritma mesin pencari sederhana.
+        </li>
+        <li>
+            Data semi-struktur merupakan jenis data yang dimasukan ke dalam sebuah tabel, tetapi skemanya tidak sama dengan tabel biasa yang hanya terdiri dari baris dan kolom. 
+            Data semi-terstruktur mengandung format data terstruktur dan tidak terstruktur. Contohnya adalah data dalam bentuk <b>file csv</b>, <b>file xml</b>, dan <b>file json</b>.
+        </li>
+        <li>
+            Data tidak terstruktur merupakan data dengan bentuk yang tidak dikenal, harus disimpan dengan format khusus karena tidak memiliki struktur yang spesifik seperti jenis data terstruktur. Raw data dari jenis data ini hanya dapat menghasilkan nilai setelah diproses dan dianalisa. 
+            Menyimpan data jenis ini pun memiliki kerumitan seperti memerlukan penggunaan sistem penyimpanan yang memadai, seperti <b>database NoSQL (MongoDB dan CouchDB)</b>. 
+            Contoh jenis data tidak terstruktur seperti data teks, berformat foto atau gambar, video, atau suara.
+        </li>
+    </ol>
+
+
+    <!--SQL dan NoSQL-->
+    <h1 id="sql-nosql" style="margin-left: 1%;">SQL dan NoSQL</h1>
+    <p>
+        Dalam mengelola dan mengorganisir database, dapat menggunakan 2 pendekatan yang berbeda yaitu SQL (Structured Query Language) dan NoSQL (Not only SQL).
+    </p>
+    <ol type="1">
+        <li>SQL</li>
+        <p style="margin-left: 0;">
+            Dalam database SQL, tabel-tabel membentuk data. Struktur database menentukan relasi di antara tabel-tabel yang disebut sebagai database SQL relasional. Database tersebut mengatur hubungan dan properti. Database SQL yang umum adalah <b>MySQL</b> dan <b>PostgreSQL</b>.
+        </p>
+        <li>NoSQL</li>
+        <p style="margin-left: 0;">
+            Database NoSQL biasa disebut sebagai non-relasional. NoSQL sering dikaitkan dengan data yang tidak terstruktur dan tanpa skema, tetapi ada beberapa jenis database NoSQL yang tidak semuanya tidak terstruktur. Dua jenis database NoSQL yang sering digunakan adalah <b>key-value store seperti Redis</b> atau <b>database dokumen seperti MongoDB</b>. 
+            Kasus penggunaan umum adalah caching atau konfigurasi terdistribusi. Nilai dalam database dokumen adalah objek terstruktur atau semi-terstruktur, misalnya objek JSON.
+        </p>
+    </ol>
+
+
+    <!--SQL - Database Schema-->
+    <h1 id="database-schema" style="margin-left: 1%;">SQL - Database Schema</h1>
+    <p>
+        <b>Database Schema dalam SQL adalah struktur atau kerangka yang mendefinisikan bagaimana data diatur dalam sebuah database</b>. Skema ini mengatur berbagai elemen, seperti tabel, kolom, tipe data, dan hubungan antar data. Secara umum, skema adalah "peta" atau rancangan yang membantu memahami bagaimana data akan disimpan, dihubungkan, dan diakses. 
+        Berikut adalah contoh pembentukan skema pada database:
+    </p>
+    <P class="kotak" style="color: #fff;">
+        -- Create Customer Table
+        <br><span class="teks-sandybrown">CREATE TABLE "Customer" (</span>
+        <br><span class="teks-skyblue">"id" SERIAL NOT NULL,</span>
+        <br><span class="teks-skyblue">"first_name" varchar,</span>
+        <br><span class="teks-skyblue">"last_name" varchar,</span>
+        <br><span class="teks-sandybrown">PRIMARY KEY ("id"));</span>
+        <br>
+        <br>-- Create Order Table
+        <br><span class="teks-sandybrown">CREATE TABLE "Order"(</span>
+        <br><span class="teks-skyblue">"id" SERIAL NOT NULL,</span>
+        <br><span class="teks-skyblue">"customer_id" integer REFERENCES "Customer",</span>
+        <br><span class="teks-skyblue">"product_name" varchar,</span>
+        <br><span class="teks-skyblue">"product_price" integer,</span>
+        <br><span class="teks-sandybrown">PRIMARY KEY ("id"));</span>
+    </P>
+
+    <p>
+        Ilustrasi tabel yang dihasilkan adalah sebagai berikut:
+    </p>
+    <iframe src="https://drive.google.com/file/d/1uHpr4KiMSOuRQGBEvc1rRc4zH7oGswOV/preview" width="55%" height="180px" style="margin-left: 20%;" frame-border="0" alt="Gambar 1"></iframe>
+
+    <p>
+        Terdapat dua tabel, yaitu <b>Customer</b> dan <b>Order</b>. Kolom <b>customer_id</b> menghubungkan pesanan kustomer pada tabel <b>Customer</b>. 
+        Kolom tersebut dikenal sebagai foreign key karena merujuk ke tabel lain. Foreign key ini dapat dimanfaatkan untuk menggabungkan tabel menggunakan JOIN.
+    </p>
+
+
+    <!--SQL - Star Schema-->
+    <h1 id="star-schema" style="margin-left: 1%;">SQL - Star Schema</h1>
+    <p>
+        Terdapat beberapa jenis skema dalam database, namun skema yang sering digunakan dalam database adalah Star Schema. 
+        Banyak database analitik seperti Redshift yang memiliki sistem optimalisasi untuk skema dengan tipe seperti ini. 
+    </p>
+    <iframe src="https://drive.google.com/file/d/1ghO8-_HsqR40eoUavyEqDP3_mGAvBpsP/preview" width="85%" height="360px" style="margin-left: 7%;" frame-border="0" alt="Gambar 2"></iframe>
+
+    <p>
+        Star schema dalam contoh di atas adalah tabel <span class="teks-tomato">Fact_Order</span> yang berisi catatan yang mewakili hal-hal yang terjadi seperti transaksi. 
+        Tabel dimensi (<span class="teks-tomato">Dim_Customer</span>, <span class="teks-tomato">Dim_Store</span>, <span class="teks-tomato">Dim_Product</span>, dan <span class="teks-tomato">Dim_Time</span>) menyimpan informasi seperti nama pelanggan atau harga produk.
+    </p>
+
+
+    <!--Dibalik Parallel Computing-->
+    <h1 id="dibalik-parallel-computing" style="margin-left: 1%;">Dibalik Parallel Computing</h1>
+    <p>
+        Parallel Computing merupakan basis dari beragam tools processing data terkini. Hal tersebut menjadi bagian yang penting dari big data, karena keunggulan memori dan kecepatan processingnya.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1B_yb2wIGWKPTKvY4zGzuAJG9Q8pUMqpo/preview" width="70%" height="450px" style="margin-left: 15%;" frame-border="0" alt="Gambar 3"></iframe>
+
+    <p>
+        Saat tools pengolah big data melakukan task processing, parallel computing membaginya menjadi beberapa subtask yang lebih kecil. Tools processing kemudian mendistribusikan subtask ini ke beberapa komputer, biasanya komputer komersil, yang berarti tersedia secara luas dan relatif terjangkau. 
+        Secara individual, semua komputer akan membutuhkan waktu lama untuk memproses task yang lengkap. Namun, karena semua komputer bekerja secara paralel pada subtask yang lebih kecil, task secara keseluruhan diselesaikan lebih cepat.
+    </p>
+
+
+    <!--Analogi Penjahit untuk Parallel Computing-->
+    <h1 id="analogi-penjahit" style="margin-left: 1%;">Analogi Penjahit untuk Parallel Computing</h1>
+    <p>
+        Analogi sederhana untuk Parallel Computing adalah seperti penjahit. Berikut adalah ilustrasi penjahit untuk Parallel Computing.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1dzIQBwVkJWYmnn4oow7GqIloh3nUYq4C/preview" width="60%" height="420px" style="margin-left: 20%;" frame-border="0" alt="Gambar 4"></iframe>
+
+    <p>
+        Misalkan pengguna memiliki toko penjahit dan perlu menyelesaikan target 100 kemeja. Penjahit terbaik mampu menyelesaikan kemeja dalam waktu 20 menit. Penjahit biasa membutuhkan waktu 1 jam per kemeja. Jika hanya satu penjahit yang bisa bekerja dalam satu waktu, tentu pengguna harus memilih penjahit tercepat untuk dapat menyelesaikan pekerjaan. 
+        Namun, jika pengguna dapat membagi pekerjaan menjadi masing-masing penjahit mengerjakan 25 kemeja, maka jika dikerjakan oleh 4 penjahit biasa yang bekerja secara paralel akan lebih cepat. Hal serupa terjadi untuk task processing big data.
+    </p>
+
+
+    <!--Keuntungan Parallel Computing-->
+    <h1 id="keuntungan-parallel-computing" style="margin-left: 1%;">Keuntungan Parallel Computing</h1>
+    <p>
+        Parallel computing menawarkan beberapa keuntungan yang signifikan, terutama dalam konteks big data. Berikut adalah beberapa keuntungan parallel computing:
+    </p>
+    <ol type="1">
+        <li>Peningkatan kecepatan: Dengan membagi tugas antara beberapa unit pemrosesan, waktu yang diperlukan untuk menyelesaikan komputasi secara keseluruhan berkurang secara drastis.</li>
+        <li>Efisiensi memori: Parallel computing memungkinkan pemecahan data menjadi subset yang lebih kecil, yang dapat dimuat ke dalam memori di berbagai komputer. Dengan demikian, tiap komputer hanya perlu menyimpan bagian dari keseluruhan data, sehingga mengurangi kebutuhan memori per unit pemrosesan.</li>
+        <li>Skalabilitas: Parallel computing memungkinkan penambahan unit pemrosesan tambahan (seperti node dalam kluster) sesuai kebutuhan, yang berarti skala pemrosesan dapat ditingkatkan seiring pertumbuhan data.</li>
+        <li>Reliabilitas: Dalam sistem paralel, kerusakan pada satu unit pemrosesan tidak serta merta menghentikan keseluruhan proses. Sistem dapat dirancang untuk mendistribusikan ulang tugas dari unit yang gagal ke unit lainnya, meningkatkan kehandalan.</li>
+    </ol>
+
+
+    <!--Risiko Parallel Computing-->
+    <h1 id="risiko-parallel-computing" style="margin-left: 1%;">Risiko Parallel Computing</h1>
+    <p>
+        Sebelum menerapkan parallel computing, penting untuk mempertimbangkan trade-off, terutama pada tugas berkompleksitas rendah atau dengan sedikit unit pemrosesan:
+    </p>
+    <ol type="1">
+        <li>Overhead komunikasi: Memisahkan dan menggabungkan tugas memerlukan komunikasi antar proses, yang bisa menambah overhead, terutama jika tugasnya sederhana atau persyaratan pemrosesan rendah.</li>
+        <li>Parallel slowdown: Penambahan unit pemrosesan tidak selalu meningkatkan kecepatan secara linear karena overhead koordinasi. Ini sering terjadi pada tugas ringan dengan skala kecil.</li>
+        <li>Efisiensi unit terbatas: Dengan hanya dua unit pemrosesan, pemecahan tugas bisa kurang efisien jika waktu eksekusinya singkat, karena overhead pemisahan dan sinkronisasi bisa lebih besar dari keuntungan.</li>
+        <li>Evaluasi yang cermat diperlukan untuk memastikan parallel computing benar-benar meningkatkan kinerja tanpa menambah overhead berlebih.</li>
+    </ol>
+
+
+    <!--Implementasi Penggunaan Parallel Computing-->
+    <h1 id="implementasi-parallel-computing" style="margin-left: 1%;">Implementasi Penggunaan Parallel Computing</h1>
+    <p>
+        Contoh penggunaan parallel computing dapat dilihat melalui analisis dataset seluruh event Olimpiade dari tahun 1896 hingga 2016. Dalam analisis ini, tujuan utamanya adalah menghitung usia rata-rata peserta di setiap tahun. 
+        Dengan 4 unit pemrosesan, beban kerja dapat didistribusikan di antara semua unit tersebut. 
+    </p>
+    <iframe src="https://drive.google.com/file/d/1Fn7ayGgXA7QFWQADwx3D_VvBnCw8zmHL/preview" width="70%" height="330px" style="margin-left: 15%;" frame-border="0" alt="Gambar 5"></iframe>
+
+    <p>
+        Langkah pertama adalah membagi tugas utama menjadi beberapa sub-tugas, misalnya dengan menghitung usia rata-rata peserta untuk setiap kelompok tahun menggunakan metode <span class="teks-tomato">‘groupby’</span>. Sub-tugas ini kemudian didistribusikan ke 4 unit pemrosesan, memungkinkan perhitungan berjalan secara paralel. 
+        Proses ini memberikan gambaran tentang bagaimana algoritma terdistribusi seperti <b>Hadoop MapReduce</b> bekerja, meskipun perbedaannya adalah bahwa di sini unit pemrosesan berada di satu mesin, sementara MapReduce mendistribusikan pemrosesan di beberapa mesin.
+    </p>
+    <p class="kotak" style="color: #fff;">
+        <span class="teks-sandybrown">from multiprocessing import Pool</span>
+        <br><span class="teks-sandybrown">import pandas as pd</span>
+        <br>
+        <br><span class="teks-skyblue">def take_mean_age(year_and_group):</span>
+        <br><span class="margin-left2">year, group = year_and_group</span>
+        <br><span class="margin-left4">return pd.DataFrame({"Age": group["Age"].mean()}, index=[year])</span>
+        <br>
+        <br><span class="teks-skyblue">with Pool(4) as p:</span>
+        <br><span class="margin-left2">results = p.map(take_mean_age, athlete_events.groupby("Year"))</span>
+        <br><span class="margin-left4">result_df = pd.concat(results)</span>
+    </p>
+
+    <p>
+        Implementasi parallel computing dapat dilakukan dengan berbagai cara. Dalam contoh kode di atas, API <span class="teks-tomato">`multiprocessing.Pool`</span> bisa digunakan untuk mendistribusikan tugas ke beberapa core pada mesin yang sama. Misalnya, fungsi <span class="teks-tomato">`take_mean_age`</span> dapat dibuat untuk menerima tuple berisi <b>"year_and_group"</b> dalam bentuk DataFrame. 
+        Fungsi ini akan mengembalikan DataFrame dengan satu observasi dan satu kolom (usia rata-rata grup) dengan year sebagai index-nya. Setelah itu, <span class="teks-tomato">`take_mean_age`</span> dapat dipanggil dan dipetakan ke grup yang dihasilkan oleh <span class="teks-tomato">`.groupby()`</span> menggunakan metode <span class="">`.map()`</span> dari <span class="teks-tomato">`Pool`</span>. 
+    </p>
+    <p>
+        Dengan menentukan <b>`4`</b> sebagai argumen <span class="teks-tomato">`Pool`</span>, pemetaan akan berjalan pada 4 proses terpisah, sehingga memanfaatkan 4 core. Terakhir, hasilnya dapat digabungkan kembali menjadi DataFrame yang diinginkan.
+    </p>
+
+    <p class="kotak" style="color: #fff;">
+        <span class="teks-sandybrown">import dask.dataframe as dd</span>
+        <br>
+        <br># Partition dataframe into 4
+        <br><span class="teks-skyblue">athlete_events_dask = dd.from_pandas(athlete_events, npartitions = 4)</span>
+        <br>
+        <br># Run parallel computations on each partition
+        <br><span class="teks-sandybrown">result_df = athlete_events_dask.groupby('Year').Age.mean().compute()</span>
+    </p>
+
+    <p>
+        Selain <span class="teks-tomato">`multiprocessing.Pool`</span>, framework <b>`dask`</b> juga dapat digunakan untuk pendistribusian tugas dengan lebih sederhana dan tanpa banyak pengaturan low-level. Dengan <b>`dask`</b>, objek DataFrame dapat melakukan operasi seperti <span class="teks-tomato">`groupby`</span> dan menjalankan multiproses secara otomatis. Misalnya, dengan menentukan jumlah partisi sebanyak <b>`4`</b>, <b>`dask`</b> akan membagi DataFrame menjadi 4 bagian dan menjalankan operasi <span class="teks-tomato">`.mean()`</span> pada setiap bagian secara terpisah. 
+        Karena <b>`dask`</b> menggunakan pendekatan <span class="teks-tomato">“lazy evaluation”</span>, perlu menambahkan <span class="teks-tomato">`.compute()`</span> di akhir rangkaian perintah untuk mengeksekusi semua proses yang tertunda dan mendapatkan hasil akhir.
+    </p>
+
+
+    <!--Mengenal Hadoop-->
+    <h1 id="hadoop" style="margin-left: 1%;">Mengenal Hadoop</h1>
+    <p>
+        Hadoop adalah salah satu platform software yang digunakan untuk mengelola Big Data. Platform ini merupakan library software yang mirip framework open source berbasis bahasa pemrograman Java, di bawah lisensi Apache. Hadoop dirancang untuk memproses Big Data dengan model pemrograman sederhana dan telah diadopsi oleh banyak perusahaan besar seperti Microsoft, Oracle, dan IBM.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1Tz8J_Ioex9njs24TmhDWa9IJTjNXIyI7/preview" width="55%" height="270px" style="margin-left: 20%;" frame-border="0" alt="Gambar 6"></iframe>
+
+    <p>
+        Secara singkat, Hadoop memungkinkan beberapa komputer untuk terhubung dan bekerja sama dalam menyimpan serta mengelola data sebagai satu kesatuan yang terpadu.
+    </p>
+
+
+    <!--Hadoop Distributed File System (HDFS)-->
+    <h1 id="hdfs" style="margin-left: 1%;">Hadoop Distributed File System (HDFS)</h1>
+    <p>
+        HDFS (Hadoop Distributed File System) adalah proyek open source yang dikembangkan oleh Apache Software Foundation dan merupakan bagian dari subproyek Apache Hadoop. 
+    </p>
+    <iframe src="https://drive.google.com/file/d/1LcwPsUQbRcZKz_Xz3W3D28Jku6hBHTdx/preview" width="55%" height="290px" style="margin-left: 20%;" frame-border="0" alt="Gambar 7"></iframe>
+
+    <p>
+        Dikembangkan berdasarkan konsep Google File System (GFS), HDFS memiliki kemiripan dalam logika, struktur fisik, dan cara kerjanya dengan GFS. Sebagai layer penyimpanan di Hadoop, <b>HDFS adalah sistem file berbasis Java yang bersifat fault-tolerant, terdistribusi, dan scalable</b>. Sistem ini dirancang untuk dapat digunakan pada kluster dan dapat dijalankan baik di proprietary server maupun commodity server.
+    </p>
+    <p>
+        HDFS ini pada dasarnya adalah sebuah direktori, di mana data yang disimpan bekerja sesuai dengan spesifikasi dari Hadoop. Data tersimpan dalam kluster yang terdiri dari banyak node komputer/server yang masing-masing sudah terinstal Hadoop.
+    </p>
+
+
+    <!--MapReduce pada Hadoop-->
+    <h1 id="mapreduce">MapReduce pada Hadoop</h1>
+    <iframe src="https://drive.google.com/file/d/1qEEeNX6kZWCPiiX5t6jrVvEYeZM4DhOS/preview" width="55%" height="280px" style="margin-left: 20%;" frame-border="0" alt="Gambar 8"></iframe>
+
+    <p>
+        MapReduce adalah sebuah teknik pemrosesan dan model program untuk komputasi terdistribusi yang berbasis Java. Algoritma MapReduce mengandung dua task penting, yaitu <b>Map</b> dan <b>Reduce</b>.
+    </p>
+    <ol type="1">
+        <li>Map mengambil set data dan mengubahnya menjadi set data lain, di mana setiap elemen dibagi menjadi tuple (pasangan key/value).</li>
+        <li>Task Reduce, mengambil output dari map sebagai input dan menggabungkan tuple data tersebut menjadi set tuple yang lebih kecil yang akan disimpan di dalam Hadoop Distributed File System (HDFS).</li>
+    </ol>
+
+    <p>
+        Sesuai dengan urutan nama MapReduce, task reduce selalu dilakukan setelah task map.
+    </p>
+
+
+    <!--Mengenal Apache Hive-->
+    <h1 id="apache-hive" style="margin-left: 1%;">Mengenal Apache Hive</h1>
+    <p>
+        Apache Hive adalah proyek data warehouse dan analitik yang dibangun di atas platform Apache Hadoop. Awalnya dikembangkan oleh para pengembang di Facebook, Hive muncul sebagai solusi untuk mengatasi kesulitan dalam mengakses dan melakukan query terhadap data yang disimpan di Hadoop, yang sebelumnya mengharuskan penggunaan konsep Map and Reduce dengan bahasa pemrograman Java. 
+        Hive menyediakan antarmuka yang memungkinkan pengguna untuk melakukan retrieval dan manipulasi data menggunakan sintaks yang mirip dengan SQL.
+    </p>
+
+    <iframe src="https://drive.google.com/file/d/1kIo_y8IKS0WojQUz5VXAdXpY5ghKOktQ/preview" width="50%" height="320px" style="margin-left: 25%;" frame-border="0" alt="Gambar 9"></iframe>
+
+    <p>
+        Banyak pengguna salah paham dengan menganggap Apache Hive sebagai engine database, padahal data yang di-query melalui Hive disimpan secara terdistribusi dalam file system HDFS pada data node Hadoop. Hive menyederhanakan akses ke data yang disimpan di HDFS dengan membuat compiler query bernama <b>HiveQL</b>, yang diterjemahkan menjadi <b>job Map Reduce</b> untuk diproses. 
+        Selain itu, Hive juga menyimpan struktur data, seperti kolom pada tabel RDBMS, dalam modul <b>Hive Metastore</b>. Berikut adalah contoh implementasi Apache Hive:
+    </p>
+    <iframe src="https://drive.google.com/file/d/1nLydqaiMbAYqKKnkCujcQH2zjIOSH14U/preview" width="90%" height="130px" style="margin-left: 5%;" frame-border="0" alt="Gambar 10"></iframe>
+
+    <p>
+        Query Hive di atas memilih usia rata-rata peserta Olimpiade per tahun. Meskipun tampak mirip dengan query SQL biasa, di balik layar, query tersebut akan bertransformasi menjadi tugas yang dapat dieksekusi dalam sebuah cluster. Proses ini memungkinkan pemrosesan data secara terdistribusi, memanfaatkan kekuatan komputasi dari beberapa node dalam cluster Hadoop untuk mengolah dan menganalisis data secara efisien.
+    </p>
+
+
+    <!--Mengenal Apache Spark-->
+    <h1 id="apache-spark" style="margin-left: 1%;">Mengenal Apache Spark</h1>
+    <p>
+        Apache Spark merupakan suatu teknologi komputasi clustering yang berguna sebagai pelengkap kebutuhan yang membutuhkan penanganan cepat seperti big data dan machine learning. Sistem ini memiliki fitur andalan yakni mengumpulkan memori yang bisa membantu meningkatkan kecepatan pemrosesan aplikasi.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1GXGryiHbkA-O352vSCB4xxuy6g0rEdED/preview" width="55%" height="250px" style="margin-left: 20%;" frame-border="0" alt="Gambar 11"></iframe>
+
+    <p>
+        Spark memang dirancang untuk meminimalisir workload. Misalnya proses aplikasi, algoritma berulang, query interaktif, dan transmisi. Selain itu Spark juga mendukung berbagai workload di dalam setiap sistem. Fitur Apache Spark juga bisa mengurangi beban maintenance management.
+    </p>
+
+    <p>
+        Arsitektur Apache Spark menggunakan 3 teknologi untuk menunjang proses analisa big data. Berikut ini teknologi yang digunakannya:
+    </p>
+    <ol type="1">
+        <li>Distributed, yakni suatu processing system yang ada pada Spark. Sehingga memungkinkan untuk menggunakan satu atau lebih server saat pemrosesan data secara paralel.</li>
+        <li>In-memory caching, Spark menggunakan RAM dan memanfaatkan fitur caching supaya proses pengolahan data menjadi lebih cepat.</li>
+        <li>Optimized Query Execution</li>
+    </ol>
+
+
+    <!--Resilient Distributed Dataset (RDD) pada Apache Spark-->
+    <h1 id="rdd-apache-spark" style="margin-left: 1%;">Resilient Distributed Dataset (RDD) pada Apache Spark</h1>
+    <p>
+        Arsitektur Spark bergantung pada Resilient Distributed Dataset atau lebih sering disebut RDD. RDD adalah struktur data untuk pengelolaan data yang didistribusikan dalam banyak node.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1S-Hel6h9lgEjkvW_IwYSe-5-27Lyq40i/preview" width="55%" height="230px" style="margin-left: 20%;" frame-border="0" alt="Gambar 12"></iframe>
+
+    <p>
+        Tidak seperti DataFrames, RDD tidak memiliki kolom dengan sebuah nama. Dari perspektif konseptual, kita dapat menganggap RDD sebagai daftar tuple. Pengguna dapat melakukan dua jenis operasi pada struktur data ini, yaitu:
+    </p>
+    <ol type="1">
+        <li>Transformasi, seperti <span class="teks-tomato">.map()</span> atau <span class="teks-tomato">.filter()</span>.</li>
+        <li>Action, seperti <span class="teks-tomato">.sum()</span> atau <span class="teks-tomato">.first()</span>.</li>
+    </ol>
+
+    <p>
+        Transformasi akan menghasilkan RDD kembali yang telah disesuaikan, sedangkan action menghasilkan hasil tunggal.
+    </p>
+
+
+    <!--Python Interface untuk Apache Spark (PySpark)-->
+    <h1 id="pyspark" style="margin-left: 1%;">Python Interface untuk Apache Spark (PySpark)</h1>
+    <p>
+        Ketika programmer bekerja menggunakan Spark, mereka biasanya menggunakan interface bahasa pemrograman seperti PySpark. 
+        PySpark adalah interface Python pada Spark. Selain dalam bahasa python, Spark juga dapat menggunakan bahasa antar muka lainnya, seperti R atau Scala. 
+    </p>
+    <iframe src="https://drive.google.com/file/d/1R4JJVW-CNCxeYK9lS-td__4ejlcr4xer/preview" width="50%" height="230px" style="margin-left: 20%;" frame-border="0" alt="Gambar 14"></iframe>
+
+    <p>
+        PySpark menghosting abstraksi DataFrame, yang berarti programmer dapat melakukan task operasi yang sangat mirip dengan DataFrame pandas. 
+        PySpark dan Spark juga dapat menangani seluruh operasi Parallel Computing yang kompleks. Berikut adalah contoh penggunaan pyspark pada python:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # Load the dataset into athlete_events_spark first
+        <br><span class="teks-skyblue">(athlete_events_spark</span>
+        <br><span class="teks-skyblue">.groupBy('Year')</span>
+        <br><span class="teks-skyblue">.mean('Age')</span>
+        <br><span class="teks-sandybrown">.show())</span>
+    </p>
+
+    <p>
+        Dalam contoh penggunaan PySpark, kode program yang digunakan untuk menghitung usia rata-rata peserta Olimpiade per tahun terlihat mirip dengan query Hive sebelumnya. Namun, alih-alih menggunakan abstraksi SQL seperti pada contoh Hive, kode ini memanfaatkan abstraksi DataFrame. 
+        Dengan menggunakan DataFrame, PySpark menawarkan cara yang lebih terstruktur untuk melakukan operasi pada data, memungkinkan pengguna untuk memanipulasi dan menganalisis data dengan lebih fleksibel sambil tetap menjaga kemiripan sintaks dengan SQL.
+    </p>
+
+
+    <!--Pipeline Apache Spark-->
+    <h1 id="pipeline-apache-spark" style="margin-left: 1%;">Pipeline Apache Spark</h1>
+    <p>
+        Dalam sebuah pipeline analisis data, user dapat menggunakan Spark untuk membuat tugas yang mengambil data dari file CSV, menyaring data yang korup, dan memuatnya ke dalam database SQL untuk analisis lebih lanjut. Proses ini perlu diulang secara berkala karena data baru terus masuk ke dalam file CSV. 
+        Untuk mengotomatisasi proses ini, alat seperti <b>`crontab`</b> di Linux bisa digunakan untuk menjadwalkan tugas.
+    </p>
+    <iframe src="https://drive.google.com/file/d/1xoawUYyS70tIjs12N7aLy9X2wjKPntwb/preview" width="85%" height="250px" style="margin-left: 10%;" frame-border="0" alt="Gambar 15"></iframe>
+
+    <p>
+        Proses dimulai dengan menarik file CSV, dilanjutkan dengan pembersihan data dari API, dan menggabungkan kedua sumber data tersebut. Karena penggabungan bergantung pada hasil dari langkah sebelumnya, pendekatan yang sistematis diperlukan, yaitu menggunakan Workflow Scheduling Framework. 
+        Framework ini membantu dalam mengelola dan menjadwalkan tugas secara efisien, memastikan setiap langkah dalam eksekusi dilakukan dalam urutan yang tepat dan otomatis, sehingga pipeline siap untuk analisis data terbaru.
+    </p>
+
+
+    <!--Directed Acyclic Graph (DAG)-->
+    <h1 id="dag" style="margin-left: 1%;">Directed Acyclic Graph (DAG)</h1>
+    <p>
+        Workflow Scheduling Framework memungkinkan pengguna untuk mendefinisikan ketergantungan antar tugas dalam suatu workflow. Pengguna dapat menentukan urutan eksekusi berdasarkan ketergantungan tersebut, sehingga memastikan bahwa tugas yang memerlukan hasil dari tugas sebelumnya diproses secara tepat waktu.
+    </p>
+    <p>
+        Salah satu cara terbaik untuk memvisualisasikan ketergantungan ini adalah dengan menggunakan Directed Acyclic Graph (DAG). DAG adalah grafik yang terdiri dari sejumlah vertex yang dihubungkan oleh edge berarah dan tidak membentuk siklus (acyclic), di mana setiap vertex mewakili sebuah tugas.
+    </p>
+    <iframe src="https://drive.google.com/file/d/19ZlyigvXvvnTNFvyk6_4qjs8R0N-xLQa/preview" width="55%" height="270px" style="margin-left: 20%;" frame-border="0" alt="Gambar 16"></iframe>
+
+    <p>
+        Dalam ilustrasi di atas terlihat bahwa tugas A harus diselesaikan terlebih dahulu, diikuti oleh tugas B, lalu C dan D, dan akhirnya tugas E. Grafik tersebut secara efektif menggambarkan alur kerja dan ketergantungan antar tugas. 
+        Tugas yang terwakili dalam DAG dapat dijadwalkan untuk dijalankan sesuai urutan yang telah ditentukan, memastikan eksekusi yang efisien dan terorganisir.
+    </p>
+
+
+    <!--Mengenal Apache Airflow-->
+    <h1 id="apache-airflow" style="margin-left: 1%;">Mengenal Apache Airflow</h1>
+    <p>
+        Apache Airflow adalah platform open source yang digunakan untuk merancang, menjadwalkan, dan memantau alur kerja (workflow) secara programatik. Dikenalkan oleh Airbnb dan menjadi proyek open source pada tahun 2015, Airflow memungkinkan pengguna untuk mendefinisikan alur kerja dengan menggunakan Directed Acyclic Graphs (DAG), di mana setiap node dalam grafik merepresentasikan tugas yang harus dieksekusi.
+    </p>
+    <iframe src="https://drive.google.com/file/d/14_vRdtEyUFZSeAK9DLrjTHJvSEEL-J3K/preview" width="75%" height="280px" style="margin-left: 15%;" frame-border="0" alt="Gambar 17"></iframe>
+
+    <p>
+        Airflow menyediakan user interface (UI) yang intuitif untuk memvisualisasikan dan memantau status eksekusi tugas. Fitur utamanya termasuk kemampuan untuk menentukan ketergantungan antar tugas, menangani retry otomatis, dan menjadwalkan tugas berdasarkan waktu atau pemicu lainnya. Selain itu, Airflow mendukung integrasi dengan berbagai sistem dan teknologi, membuatnya menjadi alat yang sangat fleksibel untuk pengelolaan workflow dalam berbagai skenario, termasuk pengolahan data, analisis, dan automasi tugas lainnya. 
+        Berikut adalah contoh studi kasus implementasi Task Airflow dan DAG:
+    </p>
+    <ol type="1">
+        <li>Task pertama adalah memulai cluster Spark.</li>
+        <li>Setelah dimulai, data pelanggan dan produk akan ditarik dengan menjalankan task <span class="teks-tomato">ingest_customer_data</span> dan <span class="teks-tomato">ingest_product_data</span>.</li>
+        <li>Task terakhir adalah menggabungkan kedua tabel menggunakan task <span class="teks-tomato">enrich_customer_data</span> yang dijalankan setelah <span class="teks-tomato">ingest_customer_data</span> dan <span class="teks-tomato">ingest_product_data</span> selesai.</li>
+    </ol>
+
+    <p>
+        Ilustrasi task Airflow dan DAG yang terbentuk adalah sebagai berikut:
+    </p>
+    <iframe src="https://drive.google.com/file/d/1PBRqVpcEE7BUVjzW9yWOcerAg9PDE__4/preview" width="95%" height="240px" style="margin-left: 3%;" frame-border="0" alt="Gambar 18"></iframe>
+
+    <p>
+        Kode python untuk meng-create Airflow adalah sebagai berikut:
+    </p>
+    <p class="kotak" style="color: #fff;">
+        # Create the DAG object
+        <br><span class="teks-skyblue">dag = DAG(dag_id="example_dag", ..., schedule_interval="0 * * * *")</span>
+        <br>
+        <br># Define operations
+        <br><span class="teks-skyblue">start_cluster = StartClusterOperator(task_id="start_cluster", dag=dag)</span>
+        <br><span class="teks-sandybrown">ingest_customer_data = SparkJobOperator(task_id="ingest_customer_data", dag=dag)</span>
+        <br><span class="teks-sandybrown">ingest_product_data = SparkJobOperator(task_id="ingest_product_data", dag=dag)</span>
+        <br><span class="teks-sandybrown">enrich_customer_data = PythonOperator(task_id="enrich_customer_data", ..., dag = dag)</span>
+        <br>
+        <br># Set up dependency flow
+        <br><span class="teks-skyblue">start_cluster.set_downstream(ingest_customer_data)</span>
+        <br><span class="teks-sandybrown">ingest_customer_data.set_downstream(enrich_customer_data)</span>
+        <br><span class="teks-sandybrown">ingest_product_data.set_downstream(enrich_customer_data)</span>
+    </p>
+
+    <p>
+        Pada saat mengimplementasikan Apache Airflow dalam suatu kode program, langkah pertama adalah membuat Directed Acyclic Graph (DAG) menggunakan class <span class="teks-tomato">`DAG`</span>. Setelah itu, operator digunakan untuk mendefinisikan setiap tugas dalam alur kerja. 
+        Beberapa jenis operator yang tersedia dalam Airflow termasuk <span class="teks-tomato">`BashOperator`</span> dan <span class="teks-tomato">`PythonOperator`</span>, yang masing-masing mengeksekusi kode bash atau Python.
+    </p>
+    <p>
+        Selain itu, pengguna dapat menulis operator kustom, seperti <span class="teks-tomato">`SparkJobOperator`</span> atau <span class="teks-tomato">`StartClusterOperator`</span>, untuk memenuhi kebutuhan spesifik. Terakhir, koneksi antara operator tersebut dapat ditentukan menggunakan metode <span class="teks-tomato">`.set_downstream()`</span>, yang mengatur urutan eksekusi tugas berdasarkan ketergantungan yang telah ditetapkan. 
+        Dengan cara ini, Airflow memungkinkan pengelolaan alur kerja yang kompleks dan terstruktur secara efisien.
+    </p>
+
+
+
+</div>
+
+</body>
+
+</html>
